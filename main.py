@@ -1,5 +1,6 @@
 from typing import Optional
 from fastapi import FastAPI
+from fraudulent_transactions import FraudTransact
 from portfolio_operations import PortfolioOp
 from pydantic import BaseModel
 from file_reorganization import FileReorg
@@ -53,5 +54,15 @@ async def risk_mitigation(input : RiskMitigation.Input):
     for i in input.inputs:
         
         ans.append(RiskMitigation().solve(i))
+
+
+    return {"answer":ans}
+
+@app.post("/fraudulent-transactions",response_model=FraudTransact.Output)
+async def fraudulent_transactions(input : FraudTransact.Input):
+    ans=[]
+    
+    for i in input.inputs:
+        ans.append(FraudTransact().solve(i))
 
     return {"answer":ans}
