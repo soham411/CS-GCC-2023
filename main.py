@@ -1,11 +1,13 @@
 from typing import Optional
 from fastapi import FastAPI
 from fraudulent_transactions import FraudTransact
+from mlmm_p import MLMMP
 from portfolio_operations import PortfolioOp
 from pydantic import BaseModel
 from file_reorganization import FileReorg
 from coin_change import CoinChange
 from risk_mitigation import RiskMitigation
+from time_intervals import TimeIntervals
 # from Inputs import Inputs
 app = FastAPI()
 
@@ -64,5 +66,23 @@ async def fraudulent_transactions(input : FraudTransact.Input):
     
     for i in input.inputs:
         ans.append(FraudTransact().solve(i))
+
+    return {"answer":ans}
+
+@app.post("/mlmm-program",response_model=MLMMP.Output)
+async def mlmm_program(input : MLMMP.Input):
+    ans=[]
+    
+    for i in input.inputs:
+        ans.append(MLMMP().solve(i))
+
+    return {"answer":ans}
+
+@app.post("/time-intervals",response_model=TimeIntervals.Outputs)
+async def mlmm_program(input : TimeIntervals.Input):
+    ans=[]
+    
+    for i in input.inputs:
+        ans.append(TimeIntervals().solve(i))
 
     return {"answer":ans}
