@@ -69,14 +69,7 @@ async def fraudulent_transactions(input : FraudTransact.Input):
 
     return {"answer":ans}
 
-@app.post("/mlmm-program",response_model=MLMMP.Output)
-async def mlmm_program(input : MLMMP.Input):
-    ans=[]
-    
-    for i in input.inputs:
-        ans.append(MLMMP().solve(i))
 
-    return {"answer":ans}
 
 @app.post("/time-intervals",response_model=TimeIntervals.Outputs)
 async def mlmm_program(input : TimeIntervals.Input):
